@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>Exp (Black)</title>
+</head>
+<body style="height:100vh;margin:0">
+<table height="100%" width="100%">
+<tr>
+<td onclick="b(0)" height="50%" width="50%"></td>
+<td onclick="b(1)" height="50%" width="50%"></td>
+</tr>
+<tr>
+<td onclick="b(2)" height="50%" width="50%"></td>
+<td onclick="b(3)" height="50%" width="50%"></td>
+</tr>
+</table>
+<script>
+const TRIES = 50;
+
+function shuffle(a) {
+	var j,x,i;
+	for (i = a.length-1; i > 0; i--) {
+		j = Math.floor(Math.random() * (i+1));
+		x = a[i];
+		a[i] = a[j];
+		a[j] = x;
+	}
+	return a;
+}
+
+var colors = ["black", "black", "black", "black"];
+var cscore = {"black":0,"black":0,"black":0,"black":0};
+var nscore = [0,0,0,0];
+var ctry = 0;
+
+function rnd() {
+	var n = 0;
+	scolors = shuffle(colors);
+	document.querySelectorAll("td").forEach(function(i) {
+		var color = scolors[n];
+		i.setAttribute("onclick", `t(${n},'${color}')`);
+		i.style.backgroundColor = color;
+		n++;
+	});
+}
+
+function t(n,c) {
+	cscore[c]++;
+	nscore[n]++;
+
+	if (ctry >= TRIES-1) {
+		out();
+	} else {
+		ctry++;
+		rnd();
+	}
+}
+
+function out() {
+	alert(`Color: ${JSON.stringify(cscore)} Location: ${nscore}`);
+	ctry = 0;
+}
+
+rnd();
+</script>
+</body>
+</html>
