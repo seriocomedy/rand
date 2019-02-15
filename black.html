@@ -28,6 +28,7 @@ td {
          -o-transition: all 0.3s linear;
             transition: all 0.3s linear;
 }
+* { user-select: none }
 </style>
 </head>
 <body style="height:100vh;margin:0">
@@ -87,6 +88,11 @@ function out() {
 	alert(`Color: ${JSON.stringify(cscore)} Location: ${nscore}`);
 	ctry = 0;
 }
+
+document.ontouchmove = function(event){
+    event.preventDefault();
+}
+
 
 rnd();
 </script>
